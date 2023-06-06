@@ -12,10 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Question;
 
-/**
- *
- * @author quoct
- */
+
 public class CollectionDAO {
     static Connection conn;
     static PreparedStatement ps;
@@ -39,12 +36,13 @@ public class CollectionDAO {
         return list;
     }
 
-    public int countNumInCollectionById(int id) {
+    public static int countNumInCollectionById(int id) {
         String sql = "Select Count(*) From Collection Where CollectionDetailID = " + id;
 
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1);
             }
@@ -53,7 +51,8 @@ public class CollectionDAO {
         return 0;
     }
     public static void main(String[] args) {
-        System.out.println(getCollectionById(1));
+//        System.out.println(getCollectionById(1));
+//        System.out.println(countNumInCollectionById(1));
     }
 
 }

@@ -39,12 +39,17 @@ public class CollectionDetail {
         this.name = name;
     }
 
-    public Account getOwner() {
+    public  Account getOwner() {
         return owner;
     }
 
     public void setOwner(Account owner) {
         this.owner = owner;
+    }
+
+    @Override
+    public String toString() {
+        return "CollectionDetail{" + "id=" + id + ", name=" + name + ", owner=" + owner + '}';
     }
     
     

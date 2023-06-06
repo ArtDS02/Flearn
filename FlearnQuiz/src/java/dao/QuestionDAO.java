@@ -24,8 +24,10 @@ public class QuestionDAO extends DBContext {
         String sql = "Select * From Question Where QuestionId = ?";
 
         try {
-            PreparedStatement st = conn.prepareStatement(sql);
-            st.setInt(1, id);
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
             if (rs.next()) {
                 Question question = new Question(
                         rs.getInt(1),
@@ -43,7 +45,7 @@ public class QuestionDAO extends DBContext {
         return null;
     }
     public static void main(String[] args) {
-        System.out.println(getQuestionById(1));
+//        System.out.println(getQuestionById(1));
     }
     
     

@@ -4,6 +4,7 @@
  */
 package dao;
 
+import context.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,18 +23,20 @@ public class CollectionDetailDAO {
     static ResultSet rs;
 
 
-    public List<CollectionDetail> getAllCollectionDetail() {
+    public static List<CollectionDetail> getAllCollectionDetail() {
         List<CollectionDetail> list = new ArrayList<>();
 
         String sql = "Select * From CollectionDetail";
 
         try {
-            PreparedStatement st = conn.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 AccountDAO accDAO = new AccountDAO();
                 Account acc = accDAO.getAccountbyId(String.valueOf(rs.getInt(3)));
                 CollectionDetail cd = new CollectionDetail(rs.getInt(1), rs.getString(2), acc);
+        
                 list.add(cd);
             }
         } catch (Exception e) {
@@ -41,13 +44,14 @@ public class CollectionDetailDAO {
         return list;
     }
 
-    public CollectionDetail getCollectionDetailById(int id) {
+    public static CollectionDetail getCollectionDetailById(int id) {
 
         String sql = "Select * From CollectionDetail Where CollectionDetailID = " + id;
 
         try {
-            PreparedStatement st = conn.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
             if (rs.next()) {
                 AccountDAO accDAO = new AccountDAO();
                 Account acc = accDAO.getAccountbyId(String.valueOf(rs.getInt(3)));
@@ -64,8 +68,9 @@ public class CollectionDetailDAO {
         String sql = "Select * From CollectionDetail Where Owner = " + account.getId();
         List<CollectionDetail> list = new ArrayList<>();
         try {
-            PreparedStatement st = conn.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 AccountDAO accDAO = new AccountDAO();
                 Account acc = accDAO.getAccountbyId(String.valueOf(rs.getInt(3)));
@@ -75,6 +80,11 @@ public class CollectionDetailDAO {
         } catch (Exception e) {
         }
         return list;
+    }
+    public static void main(String[] args) {
+//        System.out.println(getAllCollectionDetail().get(2).toString());
+//        System.out.println(getCollectionDetailById(1));
+//        System.out.println(getCollectionDetailByOwner(getCollectionDetailById(1).getOwner()));
     }
 
 }

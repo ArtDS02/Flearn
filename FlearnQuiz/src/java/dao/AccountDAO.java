@@ -178,7 +178,7 @@ public class AccountDAO {
         }
     }
 
-    public Account getAccountbyId(String id) {
+    public static Account getAccountbyId(String id) {
         String sql = "select * from account\n"
                 + "where AccountID = ?";
         try {
@@ -216,7 +216,7 @@ public class AccountDAO {
 
 
     public static void main(String[] args) {
-        System.out.println(getListAccounts().get(1).toString()); 
+//        System.out.println(getListAccounts().get(1).toString()); 
 //        insertAccount("111","Nguyen Tien Thinh","111","111","111"); 
 //        deleteAccount("6"); 
 //        System.out.println(getAccountbyId("1"));
