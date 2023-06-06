@@ -216,11 +216,9 @@ public class AccountDAO {
 
 
     public static void main(String[] args) {
-//        System.out.println(getListAccounts().get(1).toString()); 
+        System.out.println(getListAccounts().get(1).toString()); 
 //        insertAccount("111","Nguyen Tien Thinh","111","111","111"); 
 //        deleteAccount("6"); 
-           AccountDAO dao = new AccountDAO();
-           dao.updateInfoAccount("6", "Huy", "Nhat", "0794615827", "ntnh@gmail.com", "");
 //        System.out.println(getAccountbyId("1"));
 //            updateAccount(4,"Nguyen Tien Thinh","1","111","Nguyen Tien Thinh");
 //            System.out.println(checkName("ABC"));

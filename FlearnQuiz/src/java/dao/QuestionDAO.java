@@ -42,6 +42,9 @@ public class QuestionDAO extends DBContext {
         }
         return null;
     }
+    public static void main(String[] args) {
+        System.out.println(getQuestionById(1));
+    }
     
     
 }

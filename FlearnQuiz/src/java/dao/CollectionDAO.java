@@ -5,6 +5,7 @@
 package dao;
 
 import java.sql.Connection;
+import context.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -20,14 +21,16 @@ public class CollectionDAO {
     static PreparedStatement ps;
     static ResultSet rs;
 
-    public List<Question> getCollectionById(int id) {
+
+    public static List<Question> getCollectionById(int id) {
         String sql = "Select * From Collection Where CollectionDetailID = ?";
         List<Question> list = new ArrayList<>();
         QuestionDAO questionDAO = new QuestionDAO();
         try {
-            PreparedStatement st = conn.prepareStatement(sql);
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(questionDAO.getQuestionById(rs.getInt(2)));
             }
@@ -40,7 +43,7 @@ public class CollectionDAO {
         String sql = "Select Count(*) From Collection Where CollectionDetailID = " + id;
 
         try {
-            PreparedStatement st = conn.prepareStatement(sql);
+            PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1);
@@ -48,6 +51,9 @@ public class CollectionDAO {
         } catch (Exception e) {
         }
         return 0;
+    }
+    public static void main(String[] args) {
+        System.out.println(getCollectionById(1));
     }
 
 }
