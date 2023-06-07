@@ -18,7 +18,7 @@
 
             <div style="border: 1px solid black; width: 50%; margin: 0 auto 10px auto; text-align: center">
                 <h1> ${i.name}</h1>
-                <h1>Author: ${i.owner.firstName} ${i.owner.lastName}</h1>
+                <h1>Author: ${i.owner.firstname} ${i.owner.lastname}</h1>
                 <a href="collection?id=${i.id}" style="text-decoration: none"><h1>Learn</h1></a>
             </div>
 

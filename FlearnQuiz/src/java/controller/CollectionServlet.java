@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package servlet;
+package servlet.general;
 
 import dao.CollectionDAO;
+import dao.CollectionDetailDAO;
+import dao.QuestionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,17 +14,18 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.Collections;
 import java.util.List;
+import model.CollectionDetail;
 import model.Question;
 
 /**
  *
  * @author quoct
  */
-@WebServlet(name = "testoption", urlPatterns = {"/testoption"})
-public class testoption extends HttpServlet {
-/**
+@WebServlet(name = "ListColServlet", urlPatterns = {"/collection"})
+public class CollectionServlet extends HttpServlet {
+
+    /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -39,10 +42,10 @@ public class testoption extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestOptionServlet</title>");
+            out.println("<title>Servlet ListColServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestOptionServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ListColServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,15 +63,20 @@ public class testoption extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        //Get ID
         int id = Integer.parseInt(request.getParameter("id"));
 
-        CollectionDAO dao = new CollectionDAO();
-        int so = dao.countNumInCollectionById(id);
-//        PrintWriter out = response.getWriter();
-//        out.print(so);
-        request.setAttribute("so", so);
-        request.setAttribute("id", id);
-        request.getRequestDispatcher("chooseTestOptionView.jsp").forward(request, response);
+        //Import DAO
+        CollectionDetailDAO collectionDetailDAO = new CollectionDetailDAO();
+        QuestionDAO questionDao = new QuestionDAO();
+
+        CollectionDetail colDetail = collectionDetailDAO.getCollectionDetailById(id);
+
+        List<Question> list = questionDao.getCollectionById(id);
+        request.setAttribute("colDetail", colDetail);
+        request.setAttribute("collection", list);
+        request.getRequestDispatcher("collectionView.jsp").forward(request, response);
 
     }
 
@@ -83,18 +91,7 @@ public class testoption extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
-        CollectionDAO dao = new CollectionDAO();
-        int num = Integer.parseInt(request.getParameter("num"));
-        int id = Integer.parseInt(request.getParameter("id"));
-
-        List<Question> list = dao.getCollectionById(id);
-        Collections.shuffle(list);
-        List<Question> newList = list.subList(0, num);
-
-        request.setAttribute("list", newList);
-
-        request.getRequestDispatcher("doTestView.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

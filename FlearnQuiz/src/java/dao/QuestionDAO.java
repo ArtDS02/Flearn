@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import model.Question;
 import context.DBContext;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -44,8 +46,32 @@ public class QuestionDAO extends DBContext {
         }
         return null;
     }
+    public static List<Question> getCollectionById(int id) {
+        String sql = "Select * From Collection Join Question On Collection.QuestionID = Question.QuestionID Where CollectionDetailID = ?";
+        List<Question> list = new ArrayList<>();
+
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Question question = new Question(rs.getInt("QuestionID"),
+                        rs.getString("Detail"),
+                        rs.getString("AnswerA"),
+                        rs.getString("AnswerB"),
+                        rs.getString("AnswerC"),
+                        rs.getString("AnswerD"),
+                        rs.getString("TrueAnswer"));
+                list.add(question);
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
     public static void main(String[] args) {
 //        System.out.println(getQuestionById(1));
+//            System.out.println(getCollectionById(1));
     }
     
     

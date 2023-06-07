@@ -45,7 +45,7 @@
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
                     <a href="index.jsp" class="nav-item nav-link active">Home</a>
                     <a href="aboutUsView.jsp" class="nav-item nav-link">About</a>
-                    <a href="allCollectionView.jsp" class="nav-item nav-link">Courses</a>
+                    <a href="listcollectiondetail" class="nav-item nav-link">Courses</a>
                     <!--                    <div class="nav-item dropdown">
                                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                             <div class="dropdown-menu fade-down m-0">

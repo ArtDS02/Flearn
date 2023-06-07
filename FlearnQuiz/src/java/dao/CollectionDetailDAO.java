@@ -82,7 +82,7 @@ public class CollectionDetailDAO {
         return list;
     }
     public static void main(String[] args) {
-//        System.out.println(getAllCollectionDetail().get(2).toString());
+        System.out.println(getAllCollectionDetail().get(2).toString());
 //        System.out.println(getCollectionDetailById(1));
 //        System.out.println(getCollectionDetailByOwner(getCollectionDetailById(1).getOwner()));
     }
