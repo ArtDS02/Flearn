@@ -61,8 +61,9 @@ Create Table Result(
 	[Rank] NVarchar(50) 
 )
 
-
-
+Select * From Collection Where CollectionDetailID = 1
+Select Count(*) From Collection Where CollectionDetailID =1
+Select * From CollectionDetail
 
 
 
